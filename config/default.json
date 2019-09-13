@@ -1,0 +1,21 @@
+{
+  "port": 4444,
+  "host": "0.0.0.0",
+  "database": {
+    "host": "postgres",
+    "user": "template",
+    "database": "templatedb",
+    "password": "templatedb",
+    "port": "5432"
+  },
+  "jwt": {
+    "issuer": "rest.api.template",
+    "buyerLifetimeSeconds": 15552000,
+    "buyerERPSeconds": 15552000,
+    "algorithm": "HS256"
+  },
+  "basicAuth": {
+    "login": "teste",
+    "password": "123"
+  }
+}

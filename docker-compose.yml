@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  node:
+    build:
+        context: .
+        dockerfile: node.dockerfile
+    image: api-rest-template/node-image
+    container_name: api-rest-template
+    environment:
+      NODE_ENV: development
+    networks:
+      - backend
+    volumes:
+      - .:/api-rest-template
+    ports:
+      - 4444:4444
+    command: nodemon server.js
+
+  postgres:
+    image: postgres:11-alpine
+    container_name: template-postgres
+    networks:
+      - backend
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: template
+      POSTGRES_PASSWORD: templatedb
+      POSTGRES_DB: templatedb
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - ./sql:/templatedb
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d/
+
+networks:
+  backend:
+    driver: bridge

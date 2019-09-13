@@ -1,0 +1,49 @@
+{
+  "name": "api-rest-template",
+  "version": "1.0.0",
+  "description": "API REST template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mlpbraga/api-rest-template.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mlpbraga/api-rest-template/issues"
+  },
+  "homepage": "https://github.com/mlpbraga/api-rest-template#readme",
+  "devDependencies": {
+    "eslint": "^6.3.0"
+  },
+  "dependencies": {
+    "@hapi/hoek": "^8.2.4",
+    "@hapi/joi": "^16.0.0",
+    "@hapi/topo": "^3.1.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "celebrate": "^10.0.1",
+    "chai": "^4.2.0",
+    "config": "^3.2.2",
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
+    "express": "^4.17.1",
+    "joi": "^14.3.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "moment-timezone": "^0.5.26",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
+    "pino": "^5.13.2",
+    "pino-pretty": "^3.2.1",
+    "sequelize": "^5.18.4",
+    "sequelize-cli": "^5.5.1",
+    "sinon": "^7.4.2"
+  }
+}
