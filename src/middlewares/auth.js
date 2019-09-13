@@ -59,15 +59,15 @@ const authValidation = {
     try {
       if (_.isEmpty(authorization)) {
         throwBadRequest({
-          message: 'Missing Token',
           code: 401,
+          message: 'Missing Token',
         });
       }
       req.user = await Token.verify(authorization);
       if (_.isEmpty(req.user)) {
         throwBadRequest({
-          message: 'Invalid Token',
           code: 401,
+          message: 'Invalid Token',
         });
         res.status(401);
       }
@@ -94,8 +94,11 @@ const authValidation = {
     }
 
     res.set('WWW-Authenticate', 'Basic realm="401"');
-    res.status(401).send('Authentication required.');
-    return res.json('Authentication required.');
+    res.status(401);
+    return res.json({
+      code: 401,
+      message: 'Missing Authorization Token',
+    });
   },
 };
 
