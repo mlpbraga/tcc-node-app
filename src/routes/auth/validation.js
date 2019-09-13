@@ -1,19 +1,19 @@
 const Joi = require('joi');
 
-const { throwBadRequest } = require('../../utils/error');
+const { throwBadRequest } = require('../../utils/errors/bad-request');
 
 module.exports = {
   query: Joi.object({}),
   body: Joi.object({
     email: Joi.string(),
     username: Joi.string(),
-    password: Joi.string().required().error(() => {
+    password: Joi.string().required().error(() => (
       throwBadRequest({
         code: 400,
         message: 'Missing password field',
-        fields: ['body'],
-      });
-    }),
+        fields: ['password'],
+      })
+    )),
   }).xor('email', 'username')
     .error((errors) => {
       if (errors[0]) {

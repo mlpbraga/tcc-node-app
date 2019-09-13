@@ -1,6 +1,6 @@
 const { celebrate } = require('celebrate');
 const { Router } = require('express');
-const joiSchema = require('./validation');
+const validationSchema = require('./validation');
 const authController = require('../../controllers/auth');
 // const authMiddleware = require('../../middlewares/auth');
 // const logger = require('../../utils/logger');
@@ -12,8 +12,7 @@ const joiOptions = {
 };
 
 const validateMiddleware = (req, res, next) => {
-  req.context = 'auth';
-  celebrate(joiSchema, joiOptions)(req, res, next);
+  celebrate(validationSchema, joiOptions)(req, res, next);
 };
 
 router.post(

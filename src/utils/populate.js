@@ -15,6 +15,6 @@ module.exports = (sequelize, models) => {
         password: bcrypt.hashSync('123'),
       });
 
-      logger.log('Database & tables created! Sync happened.');
+      logger.info('Database & tables created! Sync happened.');
     });
 };

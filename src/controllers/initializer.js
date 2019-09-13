@@ -8,15 +8,16 @@ async function initializer() {
   sequelize
     .authenticate()
     .then(() => {
-      logger.ok('Connection has been established successfully :)');
+      logger.info('Connection has been established successfully :)');
     })
     .catch((err) => {
-      logger.error('Unable to connect to the database:', err);
+      logger.error('Unable to connect to the database.');
+      logger.debug(err);
     });
 
   populate(sequelize, models);
 
-  logger.log('API REST template Initialized!');
+  logger.info('API REST template Initialized!');
 }
 
 module.exports = initializer;

@@ -8,7 +8,7 @@ const port = 4444;
 
 initialize().then(() => {
   app.listen(port, () => {
-    logger.log(`API REST template listening at ${port}`);
+    logger.info(`API REST template listening at ${port}`);
   });
 }).catch((err) => {
   logger.error(

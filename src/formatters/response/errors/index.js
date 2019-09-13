@@ -3,7 +3,7 @@ const logger = require('../../../utils/logger');
 const ResponseFormatter = {
   errorResponse(res, err) {
     logger.error('ResponseFormatter Error Response', err.message);
-    logger.error(err);
+    logger.debug(err);
 
     const errorMsg = { code: 1000, message: 'Internal server error' };
     if (err.code !== undefined) {
@@ -21,7 +21,7 @@ const ResponseFormatter = {
 
   badRequestResponse(res, { err, code, message }) {
     logger.error('ResponseFormatter Bad Request', err.message);
-    logger.error(err);
+    logger.debug(err);
 
     const errorMsg = { code: 1001, message: 'Bad request' };
 

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 const logger = require('../utils/logger');
 const Token = require('../services/jwtoken');
-const { throwBadRequest } = require('../utils/error');
+const { throwBadRequest } = require('../utils/errors/bad-request');
 const { basicAuth } = require('../../config/');
 const { models } = require('../models');
 
@@ -74,7 +74,7 @@ const authValidation = {
       return next();
     } catch (error) {
       logger.error(`AuthMiddleware :: check ${error}`);
-      logger.error(error);
+      logger.debug(error);
       return next(error);
     }
   },

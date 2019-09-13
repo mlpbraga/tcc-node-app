@@ -22,7 +22,7 @@ module.exports = {
       return res.status(200).json({ a: 'hehehe' });
     } catch (error) {
       logger.error(`Users Controller::handleGet ${error}`);
-      logger.error(error);
+      logger.debug(error);
       return next(error);
     }
   },

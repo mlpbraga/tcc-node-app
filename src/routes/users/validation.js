@@ -1,5 +1,5 @@
 const Joi = require('joi');
-const { throwBadRequest } = require('../../utils/error');
+const { throwBadRequest } = require('../../utils/errors/bad-request');
 
 const getSchema = {
   query: Joi.object().max(0)

@@ -18,10 +18,10 @@ remove:
 	docker-compose rm
 
 logs:
-	docker logs -f $(CONTAINER_NAME) | node_modules/.bin/pino-pretty
+	docker logs -f $(CONTAINER_NAME) | node_modules/.bin/pino
 
 logs-tail:
-	docker logs -f --tail 100 $(CONTAINER_NAME) | node_modules/.bin/pino-pretty
+	docker logs -f --tail 100 $(CONTAINER_NAME) | node_modules/.bin/pino
 
 lint:
 	docker-compose run --rm node npm run lint
