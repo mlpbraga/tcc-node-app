@@ -4,7 +4,7 @@ const UsersRequestFormatter = require(
 );
 const UsersDAO = require('../dao/user-dao');
 // const constant = require('../../../utils/constants');
-// const bcrypt = require('bcryptjs');
+
 // const _ = require('lodash');
 
 module.exports = {
@@ -12,22 +12,40 @@ module.exports = {
     let response;
     try {
       const reqParams = UsersRequestFormatter.format(req);
-      response = await UsersDAO.query(reqParams);
+      response = await UsersDAO.create(reqParams);
       return res.status(201).json(response);
     } catch (error) {
-      logger.error(`Users Controller::handleGet ${error}`);
+      logger.error(`Users Controller::handlePost ${error}`);
       logger.debug(error);
       return next(error);
     }
   },
 
-  // async handlePut(req, res) {
-  //   return res.status(200).json({});
-  // },
+  async handlePut(req, res, next) {
+    let response;
+    try {
+      const reqParams = UsersRequestFormatter.format(req);
+      response = await UsersDAO.update(reqParams);
+      return res.status(202).json(response);
+    } catch (error) {
+      logger.error(`Users Controller::handlePut ${error}`);
+      logger.debug(error);
+      return next(error);
+    }
+  },
 
-  // async handleDelete(req, res) {
-  //   return res.status(200).json({});
-  // },
+  async handleDelete(req, res, next) {
+    let response;
+    try {
+      const reqParams = UsersRequestFormatter.format(req);
+      response = await UsersDAO.delete(reqParams);
+      return res.status(201).json(response);
+    } catch (error) {
+      logger.error(`Users Controller::handleDelete ${error}`);
+      logger.debug(error);
+      return next(error);
+    }
+  },
 
   async handleGet(req, res, next) {
     let response;
@@ -41,8 +59,4 @@ module.exports = {
       return next(error);
     }
   },
-  // async destroyUser(req, res) {
-  //   return res.status(200).json({});
-  // },
-
 };

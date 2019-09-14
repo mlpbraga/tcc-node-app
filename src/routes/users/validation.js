@@ -50,7 +50,32 @@ const postSchema = {
   }),
 };
 
+const putSchema = {
+  query: Joi.object({}).max(0),
+  body: Joi.object({
+    username: Joi.string(),
+    email: Joi.string(),
+    name: Joi.string(),
+    birth: Joi.date(),
+    gender: Joi.string(),
+    password: Joi.string(),
+  }),
+};
+
+const deleteSchema = {
+  query: Joi.object({
+    id: Joi.string().required().error(() => {
+      throwBadRequest({
+        code: 400,
+        message: 'Missing "id" parameter',
+      });
+    }),
+  }).max(1),
+};
+
 module.exports = {
   getSchema,
   postSchema,
+  putSchema,
+  deleteSchema,
 };

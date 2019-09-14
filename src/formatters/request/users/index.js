@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 const BaseRequestFormatter = require('../base');
 
@@ -21,7 +22,7 @@ const UsersRequestFormatter = {
         name,
         birth,
         gender,
-        password,
+        password: bcrypt.hashSync(password),
       },
     );
     return formattedParams;

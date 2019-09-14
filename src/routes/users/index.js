@@ -1,6 +1,11 @@
 const { celebrate } = require('celebrate');
 const { Router } = require('express');
-const { getSchema, postSchema } = require('./validation');
+const {
+  getSchema,
+  postSchema,
+  putSchema,
+  deleteSchema,
+} = require('./validation');
 const usersController = require('../../controllers/users');
 const authValidation = require('../../middlewares/auth');
 
@@ -33,18 +38,18 @@ router.post(
   usersController.handlePost,
 );
 
-// router.put(
-//   '/',
-//   validateMiddleware,
-//   authMiddleware,
-//   usersController.handlePut,
-// );
+router.put(
+  '/',
+  celebrate(putSchema, joiOptions),
+  authMiddleware,
+  usersController.handlePut,
+);
 
-// router.delete(
-//   '/',
-//   validateMiddleware,
-//   authMiddleware,
-//   usersController.handleDelete,
-// );
+router.delete(
+  '/',
+  celebrate(deleteSchema, joiOptions),
+  authMiddleware,
+  usersController.handleDelete,
+);
 
 module.exports = router;
