@@ -17,7 +17,7 @@ async function initializer() {
 
   populate(sequelize, models);
 
-  logger.info('API REST template Initialized!');
+  logger.info('Node App Initialized!');
 }
 
 module.exports = initializer;

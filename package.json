@@ -1,7 +1,7 @@
 {
-  "name": "api-rest-template",
+  "name": "node-app",
   "version": "1.0.0",
-  "description": "API REST template",
+  "description": "Node App",
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mlpbraga/api-rest-template.git"
+    "url": "git+https://github.com/mlpbraga/node-app.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/mlpbraga/api-rest-template/issues"
+    "url": "https://github.com/mlpbraga/node-app/issues"
   },
-  "homepage": "https://github.com/mlpbraga/api-rest-template#readme",
+  "homepage": "https://github.com/mlpbraga/node-app#readme",
   "devDependencies": {
     "eslint": "^6.3.0",
     "chai": "^4.2.0",

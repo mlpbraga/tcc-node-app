@@ -12,6 +12,7 @@ const UsersRequestFormatter = {
       birth,
       gender,
       password,
+      token,
     } = reqParams.body;
 
     formattedParams = _.merge(
@@ -22,6 +23,7 @@ const UsersRequestFormatter = {
         name,
         birth,
         gender,
+        token,
         password: bcrypt.hashSync(password),
       },
     );

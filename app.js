@@ -6,6 +6,8 @@ const { applyMiddlewares } = require('./src/middlewares');
 const {
   usersRoute,
   authRoute,
+  commentsRoute,
+  votesRoute,
 } = require('./src/routes');
 
 const app = express();
@@ -23,6 +25,8 @@ app.use(bodyParser.json());
 // api routes
 app.use('/users', usersRoute);
 app.use('/auth', authRoute);
+app.use('/comments', commentsRoute);
+app.use('/votes', votesRoute);
 
 app.use(errorHandler);
 

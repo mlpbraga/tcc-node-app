@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "f66211c2-b7af-4dc6-b029-18cd42d3f290",
-		"name": "api-rest-template",
+		"name": "node-app",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [

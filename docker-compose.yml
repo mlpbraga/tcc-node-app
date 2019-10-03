@@ -5,21 +5,21 @@ services:
     build:
         context: .
         dockerfile: node.dockerfile
-    image: api-rest-template/node-image
-    container_name: api-rest-template
+    image: node-app/node-image
+    container_name: node-app
     environment:
       NODE_ENV: development
     networks:
       - backend
     volumes:
-      - .:/api-rest-template
+      - .:/node-app
     ports:
       - 4444:4444
     command: nodemon server.js
 
   postgres:
     image: postgres:11-alpine
-    container_name: template-postgres
+    container_name: postgres-app
     networks:
       - backend
     ports:

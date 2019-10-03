@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 branch := $(shell git branch | grep \* | cut -d ' ' -f2)
-CONTAINER_NAME := api-rest-template
+CONTAINER_NAME := node-app
 
 build:
 	docker-compose build

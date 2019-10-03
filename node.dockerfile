@@ -6,4 +6,4 @@ RUN \
 
 # RUN apk --no-cache add --virtual builds-deps build-base python
 
-WORKDIR /api-rest-template
+WORKDIR /node-app
