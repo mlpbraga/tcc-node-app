@@ -8,7 +8,7 @@ module.exports = {
   async handleGet(req, res, next) {
     let response;
     try {
-      response = await CommentsDAO.randomOne();
+      response = await CommentsDAO.randomOne(req.user);
       return res.status(200).json(response);
     } catch (error) {
       logger.error(`Comments Controller::handleGet ${error}`);

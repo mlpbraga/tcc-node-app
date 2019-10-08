@@ -43,10 +43,15 @@ module.exports = (sequelize, models) => {
 
       await Votes.create({
         commentId: 1,
-        userId: 'teste',
+        userId: 'teste@email.com',
         vote: 1,
       });
 
+      await Votes.create({
+        commentId: 2,
+        userId: 'teste@email.com',
+        vote: 1,
+      });
 
       logger.info('Database & tables created! Sync happened.');
     });

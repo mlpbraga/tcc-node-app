@@ -3,7 +3,10 @@ const { models } = require('../models');
 const { Comments, News, Votes } = models;
 
 const CommentDao = {
-  async randomOne() {
+  async randomOne(reqParams) {
+    const { email } = reqParams;
+    console.log(reqParams);
+
     let where;
     let response = {};
     response = await Comments.findAll({
@@ -12,11 +15,18 @@ const CommentDao = {
     });
     const chosen = [];
     let min = 10;
-
     response.forEach((comment) => {
       if (comment.dataValues.Votes.length <= min) {
-        min = comment.dataValues.Votes.length;
-        chosen.push(comment.dataValues);
+        let alreadyVoted = false;
+        comment.dataValues.Votes.forEach((vote) => {
+          if (vote.dataValues.userId === email) {
+            alreadyVoted = true;
+          }
+        });
+        if (!alreadyVoted) {
+          min = comment.dataValues.Votes.length;
+          chosen.push(comment.dataValues);
+        }
       }
     });
     return chosen.sort(() => Math.random() - 0.5)[0];

@@ -16,7 +16,7 @@ const authMiddleware = (req, res, next) => {
 
 router.get(
   '/',
-  // authMiddleware,
+  authMiddleware,
   commentsController.handleGet,
 );
 
