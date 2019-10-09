@@ -27,6 +27,7 @@ app.use('/users', usersRoute);
 app.use('/auth', authRoute);
 app.use('/comments', commentsRoute);
 app.use('/votes', votesRoute);
+app.use('/health', (req, res) => (res.status(200).json({ ok: 'working' })));
 
 app.use(errorHandler);
 
