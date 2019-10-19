@@ -34,7 +34,6 @@ router.get(
 router.post(
   '/',
   celebrate(postSchema, joiOptions),
-  authMiddleware,
   usersController.handlePost,
 );
 
