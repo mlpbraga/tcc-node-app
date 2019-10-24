@@ -7,12 +7,12 @@ module.exports = (sequelize, types) => {
       autoIncrement: true,
     },
     content: {
-      type: types.STRING(1024),
+      type: types.TEXT,
       field: 'content',
       allowNull: false,
     },
     replyTo: {
-      type: types.STRING(1024),
+      type: types.TEXT,
       field: 'reply_to',
       allowNull: true,
     },

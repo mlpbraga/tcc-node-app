@@ -7,7 +7,7 @@ module.exports = (sequelize, types) => {
       autoIncrement: true,
     },
     title: {
-      type: types.STRING(256),
+      type: types.TEXT,
       field: 'title',
       allowNull: false,
     },
