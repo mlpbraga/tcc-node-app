@@ -15,7 +15,7 @@ async function initializer() {
       logger.debug(err);
     });
 
-  // populate(sequelize, models);
+  populate(sequelize, models);
 
   logger.info('Node App Initialized!');
 }

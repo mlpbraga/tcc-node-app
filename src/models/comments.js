@@ -11,10 +11,13 @@ module.exports = (sequelize, types) => {
       field: 'content',
       allowNull: false,
     },
+    likesQty: {
+      type: types.INTEGER,
+      field: 'likes_qtd',
+    },
     replyTo: {
       type: types.TEXT,
       field: 'reply_to',
-      allowNull: true,
     },
     newsId: {
       type: types.INTEGER,
