@@ -13,7 +13,7 @@ module.exports = (sequelize, types) => {
     },
     likesQty: {
       type: types.INTEGER,
-      field: 'likes_qtd',
+      field: 'likes_qty',
     },
     replyTo: {
       type: types.TEXT,
