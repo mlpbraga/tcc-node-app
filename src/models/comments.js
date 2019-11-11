@@ -11,9 +11,13 @@ module.exports = (sequelize, types) => {
       field: 'content',
       allowNull: false,
     },
-    likesQty: {
+    likes: {
       type: types.INTEGER,
-      field: 'likes_qty',
+      field: 'likes',
+    },
+    dislikes: {
+      type: types.INTEGER,
+      field: 'dislikes',
     },
     replyTo: {
       type: types.TEXT,
