@@ -11,6 +11,7 @@ const querys = {
   voteQuantPerClass : `
   select vote, count(vote_id) from votes group by (vote);
   `,
+  
 }
 
 
