@@ -51,6 +51,7 @@
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.26",
     "nconf": "^0.10.0",
+    "nodemon": "^2.0.3",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
     "pino": "4.17.3",
