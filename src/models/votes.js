@@ -34,7 +34,7 @@ module.exports = (sequelize, types) => {
   Votes.associate = function (models) {
     const { Users, Comments } = models;
     Votes.belongsTo(Users, {
-      foreignKey: 'email',
+      foreignKey: 'user_id',
       sourceKey: 'user_id',
     });
 
