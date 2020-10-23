@@ -14,6 +14,7 @@ const VotesRequestFormatter = {
       formattedParams.vote = -1;
     }
     formattedParams.userId = reqParams.user.email;
+    formattedParams.deleted = false;
     return formattedParams;
   },
 };
