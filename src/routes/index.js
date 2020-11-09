@@ -3,6 +3,7 @@ const authRoute = require('./auth');
 const commentsRoute = require('./comments');
 const votesRoute = require('./votes');
 const metricsRoute = require('./metrics');
+const newsRoute = require('./news');
 
 const routes = {
   usersRoute,
@@ -10,6 +11,7 @@ const routes = {
   commentsRoute,
   votesRoute,
   metricsRoute,
+  newsRoute,
 };
 
 module.exports = routes;

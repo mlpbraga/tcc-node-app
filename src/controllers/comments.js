@@ -23,7 +23,7 @@ module.exports = {
       // response formatter
       const formattedResponse = response.map(comment => {
         return {
-          ...comment,
+          ...comment.dataValues,
           votes: comment.Votes.reduce(function (avg, value, _, { length }) {
             return avg + value.vote / length;
           }, 0)

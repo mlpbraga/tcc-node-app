@@ -9,6 +9,7 @@ const {
   commentsRoute,
   votesRoute,
   metricsRoute,
+  newsRoute,
 } = require('./src/routes');
 
 const app = express();
@@ -32,6 +33,7 @@ app.use('/metrics', metricsRoute);
 app.use('/auth', authRoute);
 app.use('/comments', commentsRoute);
 app.use('/votes', votesRoute);
+app.use('/news', newsRoute);
 app.use('/health', (req, res) => (res.status(200).json({ ok: 'working' })));
 
 app.use(errorHandler);
