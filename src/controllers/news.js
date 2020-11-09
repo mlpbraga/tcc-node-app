@@ -9,7 +9,6 @@ module.exports = {
       const formattedResponse = response.map(news => {
         return {
           ...news.dataValues,
-          commentsLink: `/comments?newsId=${news.dataValues.newsId}`,
         }
       });
       return res.status(200).json(formattedResponse);
