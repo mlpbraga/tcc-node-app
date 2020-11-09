@@ -150,7 +150,7 @@ const CommentDao = {
         }
       }
     }
-    if (chosen.length === 0) {   
+    if (chosen.length === 0) {
       let alreadyVoted = false;
       comment.dataValues.Votes.forEach((vote) => {
         if (vote.dataValues.userId === email) {
@@ -209,7 +209,28 @@ const CommentDao = {
         maleQuant: usersByGender[0].find(obj => obj.gender === 'masc').count,
         ages,
       },
-    }; 
+    };
+  },
+  async read(reqParams) {
+    const {
+      id,
+      newsId,
+      limit,
+      offset,
+    } = reqParams;
+
+    const where = {};
+
+    if (id) where.commentId = id;
+    if (newsId) where.newsId = newsId;
+
+    const response = await Comments.findAll({
+      where,
+      include: [Votes, News],
+      limit,
+      offset,
+    });
+    return response;
   },
 };
 

@@ -15,8 +15,13 @@ const authMiddleware = (req, res, next) => {
 };
 
 router.get(
-  '/',
+  '/random',
   authMiddleware,
+  commentsController.handleGetRandom,
+);
+
+router.get(
+  '/',
   commentsController.handleGet,
 );
 
