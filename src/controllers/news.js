@@ -20,7 +20,7 @@ module.exports = {
   },
   async handleGetOne(req, res, next) {
     try {
-      const response = await NewsDAO.readOne({...req.param, ...req.query});
+      const response = await NewsDAO.readOne({...req.params, ...req.query});
       // response formatter
       const formattedResponse = response.dataValues;
       return res.status(200).json(formattedResponse);

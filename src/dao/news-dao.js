@@ -23,20 +23,10 @@ const NewsDao = {
     return response;
   },
   async readOne(reqParams) {
-    const {
-      id,
-      limit,
-      offset,
-    } = reqParams;
-
-    const where = {};
-
-    if (id) where.newsId = id;
+    const { id } = reqParams;
 
     const response = await News.findOne({
-      where,
-      limit,
-      offset,
+      where: { newsId: id },
     });
     return response;
   },
