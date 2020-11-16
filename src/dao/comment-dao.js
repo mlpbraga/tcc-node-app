@@ -214,7 +214,7 @@ const CommentDao = {
   async read(reqParams) {
     const {
       id,
-      newsId,
+      newsid,
       limit,
       offset,
     } = reqParams;
@@ -222,7 +222,7 @@ const CommentDao = {
     const where = {};
 
     if (id) where.commentId = id;
-    if (newsId) where.newsId = newsId;
+    if (newsid) where.newsId = newsid;
 
     const response = await Comments.findAll({
       where,
