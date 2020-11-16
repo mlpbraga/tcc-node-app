@@ -9,4 +9,9 @@ router.get(
   newsController.handleGet,
 );
 
+router.get(
+  '/:id',
+  newsController.handleGetOne,
+);
+
 module.exports = router;

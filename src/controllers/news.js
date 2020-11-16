@@ -18,4 +18,16 @@ module.exports = {
       return next(error);
     }
   },
+  async handleGetOne(req, res, next) {
+    try {
+      const response = await NewsDAO.readOne({...req.param, ...req.query});
+      // response formatter
+      const formattedResponse = response.dataValues;
+      return res.status(200).json(formattedResponse);
+    } catch (error) {
+      logger.error(`News Controller::handleGet ${error}`);
+      logger.debug(error);
+      return next(error);
+    }
+  },
 };

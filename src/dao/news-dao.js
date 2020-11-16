@@ -1,5 +1,5 @@
-const { models } = require('../models');
-
+const { db, models } = require('../models');
+const { Op } = db.Sequelize;
 const { News } = models;
 
 const NewsDao = {
@@ -16,6 +16,24 @@ const NewsDao = {
     if (id) where.newsId = newsId;
 
     const response = await News.findAll({
+      where,
+      limit,
+      offset,
+    });
+    return response;
+  },
+  async readOne(reqParams) {
+    const {
+      id,
+      limit,
+      offset,
+    } = reqParams;
+
+    const where = {};
+
+    if (id) where.newsId = id;
+
+    const response = await News.findOne({
       where,
       limit,
       offset,

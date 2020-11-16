@@ -1,6 +1,7 @@
+const { query } = require('express');
 const { models } = require('../models');
 const { db } = require('../models');
-
+const { Op } = db.Sequelize;
 const { Comments, News, Votes } = models;
 
 const querys = {
@@ -217,12 +218,16 @@ const CommentDao = {
       newsid,
       limit,
       offset,
+      query,
     } = reqParams;
 
     const where = {};
 
     if (id) where.commentId = id;
     if (newsid) where.newsId = newsid;
+    if (query) {
+      where.content = {[Op.like]: `%${query}%`};
+    }
 
     const response = await Comments.findAll({
       where,
