@@ -16,7 +16,7 @@
     "algorithm": "HS256"
   },
   "basicAuth": {
-    "login": "teste",
-    "password": "123"
+    "login": "sexism-research",
+    "password": "v3ryH4rdP4SsW0rd"
   }
 }
