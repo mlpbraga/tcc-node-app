@@ -16,6 +16,11 @@ module.exports = (sequelize, types) => {
       field: 'link',
       allowNull: false,
     },
+    description: {
+      type: types.STRING(500),
+      field: 'description',
+      allowNull: true,
+    },
     deleted: {
       type: types.BOOLEAN,
       defaultValue: false,
