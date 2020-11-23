@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const { models } = require('../models');
 const { db } = require('../models');
 
@@ -115,53 +116,42 @@ const formatAgeVoteDistribution = (response) => {
 const CommentDao = {
   async randomOne(reqParams) {
     const { email } = reqParams;
-
     let where;
-    let response = {};
-    response = await Comments.findAll({
+    let response = await Comments.findAll({
       where,
-      include: [Votes, News],
-    });
-    const chosen = [];
-    const min = 2;
-    response.forEach((comment) => {
-      // show comments without votes
-      if (chosen.length === 0) {
-        let alreadyVoted = false;
-        comment.dataValues.Votes.forEach((vote) => {
-          if (vote.dataValues.userId === email) {
-            alreadyVoted = true;
-          }
-        });
-        if (!alreadyVoted) {
-          chosen.push(comment.dataValues);
-        }
-      }
-      if (chosen.length === 0 && comment.dataValues.Votes.length === 2) {
-        let alreadyVoted = false;
-        comment.dataValues.Votes.forEach((vote) => {
-          if (vote.dataValues.userId === email) {
-            alreadyVoted = true;
-          }
-        });
-        if (!alreadyVoted) {
-          chosen.push(comment.dataValues);
-        }
-      }
-      if (chosen.length === 0 && comment.dataValues.Votes.length === 1) {
-        let alreadyVoted = false;
-        comment.dataValues.Votes.forEach((vote) => {
-          if (vote.dataValues.userId === email) {
-            alreadyVoted = true;
-          }
-        });
-        if (!alreadyVoted) {
-          chosen.push(comment.dataValues);
-        }
-      }
+      include: [
+        { model: Votes },
+        { model: News, required: true },
+      ],
     });
 
-    return chosen.sort(() => Math.random() - 0.5)[0];
+    // select only the comments that the user havent labeled yet
+    response = response.filter((comment) => {
+      let valid = true;
+      comment.Votes.forEach((vote) => {
+        if (vote.userId === email) valid = false;
+      });
+      return valid;
+    });
+
+    const draw = [];
+    const notVotedYet = [];
+    const comments = [];
+
+    response.forEach((comment) => {
+      const votes = {
+        sexist: comment.Votes.filter((vote) => vote.vote === 1).length,
+        notSexist: comment.Votes.filter((vote) => vote.vote === 0).length,
+        total: comment.Votes.length,
+      };
+      if (votes.total === 0) notVotedYet.push(comment);
+      else if (votes.sexist === votes.notSexist) draw.push(comment);
+      else comments.push(comment);
+    });
+
+    if (notVotedYet.length) return notVotedYet.sort(() => Math.random() - 0.5)[0];
+    if (draw.length) return draw.sort(() => Math.random() - 0.5)[0];
+    return comments.sort(() => Math.random() - 0.5)[0];
   },
   async metrics() {
     const commentsCount = await Comments.count();
