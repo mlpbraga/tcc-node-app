@@ -1,15 +1,17 @@
-const { query } = require('express');
+const { dropWhile } = require('lodash');
+const _ = require('lodash');
 const { models } = require('../models');
 const { db } = require('../models');
+
 const { Op } = db.Sequelize;
 const { Comments, News, Votes } = models;
 
 const querys = {
-  voteQuantFreq : `
+  voteQuantFreq: `
   with c as (select comment_id,count(vote_id) as qtd from votes group by (comment_id))
   select qtd, count(qtd) from c group by (qtd);
   `,
-  voteQuantPerClass : `
+  voteQuantPerClass: `
   select vote, count(vote_id) from votes group by (vote);
   `,
   usersByGender: `
@@ -102,67 +104,55 @@ const querys = {
   group by (age)
   order by age asc;
   `,
-}
+};
 
 const formatAgeVoteDistribution = (response) => {
   const object = {};
-  for(let i=0; i< response.length;i++) {
+  for (let i = 0; i < response.length; i++) {
     object[response[i].age] = parseInt(response[i].count);
   }
   return object;
-}
+};
 
 const CommentDao = {
   async randomOne(reqParams) {
     const { email } = reqParams;
-
     let where;
-    let response = {};
-    response = await Comments.findAll({
+    let response = await Comments.findAll({
       where,
-      include: [Votes, News],
-    });
-    const chosen = [];
-    const min = 2;
-    response.forEach((comment) => {
-      if (comment.dataValues.Votes.length === 2) {
-        let alreadyVoted = false;
-        comment.dataValues.Votes.forEach((vote) => {
-          if (vote.dataValues.userId === email) {
-            alreadyVoted = true;
-          }
-        });
-        if (!alreadyVoted) {
-          chosen.push(comment.dataValues);
-        }
-      }
+      include: [
+        { model: Votes },
+        { model: News, required: true },
+      ],
     });
 
-    if (chosen.length === 0) {
-      if (comment.dataValues.Votes.length === 1) {
-        let alreadyVoted = false;
-        comment.dataValues.Votes.forEach((vote) => {
-          if (vote.dataValues.userId === email) {
-            alreadyVoted = true;
-          }
-        });
-        if (!alreadyVoted) {
-          chosen.push(comment.dataValues);
-        }
-      }
-    }
-    if (chosen.length === 0) {
-      let alreadyVoted = false;
-      comment.dataValues.Votes.forEach((vote) => {
-        if (vote.dataValues.userId === email) {
-          alreadyVoted = true;
-        }
+    // select only the comments that the user havent labeled yet
+    response = response.filter((comment) => {
+      let valid = true;
+      comment.Votes.forEach((vote) => {
+        if (vote.userId === email) valid = false;
       });
-      if (!alreadyVoted) {
-        chosen.push(comment.dataValues);
-      }
-    }
-    return chosen.sort(() => Math.random() - 0.5)[0];
+      return valid;
+    });
+
+    const draw = [];
+    const notVotedYet = [];
+    const comments = [];
+
+    response.forEach((comment) => {
+      const votes = {
+        sexist: comment.Votes.filter((vote) => vote.vote === 1).length,
+        notSexist: comment.Votes.filter((vote) => vote.vote === 0).length,
+        total: comment.Votes.length,
+      };
+      if (votes.total === 0) notVotedYet.push(comment);
+      else if (votes.sexist === votes.notSexist) draw.push(comment);
+      else comments.push(comment);
+    });
+
+    if (notVotedYet.length) return notVotedYet.sort(() => Math.random() - 0.5)[0];
+    if (draw.length) return draw.sort(() => Math.random() - 0.5)[0];
+    return comments.sort(() => Math.random() - 0.5)[0];
   },
   async metrics() {
     const commentsCount = await Comments.count();
@@ -174,7 +164,7 @@ const CommentDao = {
     const notLabeledQuant = await db.sequelize.query(querys.notLabeledQuant);
     const votesPerUser = await db.sequelize.query(querys.votesPerUser);
     const usersAges = await db.sequelize.query(querys.usersAges);
-    const ages = usersAges[0].map(age => (age.age));
+    const ages = usersAges[0].map((age) => (age.age));
     const maleCorrectSexistVotesPerAge = await db.sequelize.query(querys.maleCorrectSexistVotesPerAge);
     const femaleCorrectSexistVotesPerAge = await db.sequelize.query(querys.femaleCorrectSexistVotesPerAge);
     const maleInorrectSexistVotesPerAge = await db.sequelize.query(querys.maleIncorrectSexistVotesPerAge);
@@ -206,8 +196,8 @@ const CommentDao = {
         },
       },
       users: {
-        femaleQuant: usersByGender[0].find(obj => obj.gender === 'fem').count,
-        maleQuant: usersByGender[0].find(obj => obj.gender === 'masc').count,
+        femaleQuant: usersByGender[0].find((obj) => obj.gender === 'fem').count,
+        maleQuant: usersByGender[0].find((obj) => obj.gender === 'masc').count,
         ages,
       },
     };
@@ -219,6 +209,7 @@ const CommentDao = {
       limit,
       offset,
       query,
+      label,
     } = reqParams;
 
     const where = {};
@@ -226,7 +217,7 @@ const CommentDao = {
     if (id) where.commentId = id;
     if (newsid) where.newsId = newsid;
     if (query) {
-      where.content = {[Op.like]: `%${query}%`};
+      where.content = { [Op.like]: `%${query}%` };
     }
 
     const response = await Comments.findAll({
