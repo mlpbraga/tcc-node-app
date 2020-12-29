@@ -39,7 +39,9 @@ module.exports = (sequelize, types) => {
   });
 
   Comments.associate = function (models) {
-    const { Comments, News, Votes } = models;
+    const {
+      Comments, News, Votes, Results,
+    } = models;
     Comments.belongsTo(News, {
       foreignKey: 'news_id',
       sourceKey: 'news_id',
@@ -47,6 +49,11 @@ module.exports = (sequelize, types) => {
     Comments.hasMany(Votes, {
       foreignKey: 'comment_id',
     });
+    Comments.belongsTo(Results,
+      {
+        foreignKey: 'comment_id',
+        sourceKey: 'comment_id',
+      });
   };
   return Comments;
 };
