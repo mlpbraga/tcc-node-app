@@ -4,7 +4,9 @@ const { models } = require('../models');
 const { db } = require('../models');
 
 const { Op } = db.Sequelize;
-const { Comments, News, Votes } = models;
+const {
+  Comments, News, Votes, Results,
+} = models;
 
 const querys = {
   voteQuantFreq: `
@@ -213,16 +215,30 @@ const CommentDao = {
     } = reqParams;
 
     const where = {};
+    const labelWhere = {};
 
     if (id) where.commentId = id;
     if (newsid) where.newsId = newsid;
     if (query) {
       where.content = { [Op.like]: `%${query}%` };
     }
+    if (label) {
+      if (label === 'sexist') labelWhere.avg = { [Op.gt]: 0.5 };
+      else if (label === 'not-sexist') labelWhere.avg = { [Op.lt]: 0.5 };
+      else if (label === 'undefined') labelWhere.avg = 0.5;
+    }
 
     const response = await Comments.findAll({
       where,
-      include: [Votes, News],
+      include: [
+        { model: Votes },
+        { model: News },
+        {
+          model: Results,
+          required: true,
+          where: labelWhere,
+        },
+      ],
       limit,
       offset,
     });

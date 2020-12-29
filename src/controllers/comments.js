@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const logger = require('../utils/logger');
 const CommentsDAO = require('../dao/comment-dao');
+const commentsResponseFormatter = require('../formatters/response/comments');
 // const constant = require('../../../utils/constants');
-
 
 module.exports = {
   async handleGetRandom(req, res, next) {
@@ -19,19 +19,7 @@ module.exports = {
   async handleGet(req, res, next) {
     try {
       const response = await CommentsDAO.read(req.query);
-      // response formatter
-      const formattedResponse = response.map((comment) => _.omit({
-        ...comment.dataValues,
-        label: comment.Votes.reduce(function (avg, value, _, { length }) {
-          return avg + value.vote / length;
-        }, 0),
-        votes: {
-          sexist: comment.Votes.filter((vote) => vote.vote === 1).length,
-          notSexist: comment.Votes.filter((vote) => vote.vote === 0).length,
-          total: comment.Votes.length,
-        },
-        news: comment.News,
-      }, ['Votes', 'news_id', 'News']));
+      const formattedResponse = commentsResponseFormatter(response);
 
       return res.status(200).json(formattedResponse);
     } catch (error) {
