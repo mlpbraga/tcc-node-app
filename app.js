@@ -8,7 +8,6 @@ const {
   authRoute,
   commentsRoute,
   votesRoute,
-  metricsRoute,
   newsRoute,
 } = require('./src/routes');
 
@@ -29,7 +28,6 @@ app.use(bodyParser.json());
 
 // api routes
 app.use('/users', usersRoute);
-app.use('/metrics', metricsRoute);
 app.use('/auth', authRoute);
 app.use('/comments', commentsRoute);
 app.use('/votes', votesRoute);

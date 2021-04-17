@@ -4,7 +4,7 @@ const { models } = require('../models');
 
 const { throwBadRequest } = require('../utils/errors/bad-request');
 
-const { Users } = models;
+const { Users, UserGender } = models;
 
 const UserDao = {
   async query(reqParams) {
@@ -40,8 +40,33 @@ const UserDao = {
   },
   async create(reqParams) {
     let response;
+
+    const {
+      username,
+      email,
+      name,
+      birth,
+      gender,
+      password,
+      deleted,
+    } = reqParams;
+
     try {
-      response = await Users.create(reqParams);
+      response = await Users.create({
+        username,
+        email,
+        name,
+        birth,
+        gender,
+        password,
+        deleted,
+      });
+      if (gender === 'other') {
+        await UserGender.create({
+          user_id: username,
+          gender: reqParams.genderDescription,
+        })
+      }
     } catch (error) {
       logger.error(`UserDao :: ${error}`);
       logger.debug(error);
