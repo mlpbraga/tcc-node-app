@@ -2,7 +2,6 @@ const compression = require('compression');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const expressPinoLogger = require('express-pino-logger');
-// const promMid = require('./metrics');
 const logger = require('../utils/logger');
 const normalizeQueryParams = require('./normalize-query-params');
 const normalizeBodyParams = require('./normalize-body-params');
