@@ -25,5 +25,5 @@ module.exports = (sequelize, types) => {
       sourceKey: 'user_id',
     });
   };
-  return Users;
+  return UserGender;
 };
