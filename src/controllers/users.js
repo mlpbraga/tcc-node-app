@@ -13,7 +13,6 @@ module.exports = {
     try {
       console.log('-----------RECIEVED', req);
       const reqParams = UsersRequestFormatter.format(req);
-      console.log('-----------CONTROLLERS', reqParams);
       response = await UsersDAO.create(reqParams);
       return res.status(201).json(response);
     } catch (error) {
