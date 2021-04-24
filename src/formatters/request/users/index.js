@@ -29,6 +29,7 @@ const UsersRequestFormatter = {
         password: bcrypt.hashSync(password),
       },
     );
+
     return formattedParams;
   },
 };
