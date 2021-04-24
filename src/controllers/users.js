@@ -11,6 +11,7 @@ module.exports = {
   async handlePost(req, res, next) {
     let response;
     try {
+      console.log('-----------RECIEVED', req);
       const reqParams = UsersRequestFormatter.format(req);
       console.log('-----------CONTROLLERS', reqParams);
       response = await UsersDAO.create(reqParams);
