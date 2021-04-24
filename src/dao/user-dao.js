@@ -50,7 +50,7 @@ const UserDao = {
       password,
       deleted,
     } = reqParams;
-
+    console.log(reqParams);
     try {
       response = await Users.create({
         username,
