@@ -40,7 +40,7 @@ const UserDao = {
   },
   async create(reqParams) {
     let response;
-
+    let otherGender;
     const {
       username,
       email,
@@ -62,10 +62,12 @@ const UserDao = {
         deleted,
       });
       if (gender === 'other') {
-        await UserGender.create({
+        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
+        otherGender = await UserGender.create({
           user_id: username,
           gender: reqParams.genderDescription,
-        })
+        });
+        console.log(otherGender);
       }
     } catch (error) {
       logger.error(`UserDao :: ${error}`);
