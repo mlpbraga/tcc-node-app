@@ -17,22 +17,22 @@ services:
       - 4444:4444
     command: nodemon server.js
 
-  # postgres:
-  #    image: postgres:11-alpine
-  #    container_name: postgres-app
-  #    networks:
-  #      - backend
-  #    ports:
-  #      - 5432:5432
-  #    environment:
-  #      POSTGRES_USER: template
-  #      POSTGRES_PASSWORD: templatedb
-  #      POSTGRES_DB: templatedb
-  #      PGDATA: /var/lib/postgresql/data
-  #    volumes:
-  # #     - ./sql:/templatedb
-  #      - ./postgres-data:/var/lib/postgresql/data
-  # #     - ./sql:/docker-entrypoint-initdb.d/
+  postgres:
+    image: postgres:11-alpine
+    container_name: postgres-app
+    networks:
+      - backend
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: template
+      POSTGRES_PASSWORD: templatedb
+      POSTGRES_DB: templatedb
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - ./sql:/templatedb
+      - ./postgres-data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d/
 
 networks:
   backend:
