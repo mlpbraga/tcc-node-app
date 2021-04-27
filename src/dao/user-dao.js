@@ -62,9 +62,8 @@ const UserDao = {
         deleted,
       });
       if (gender === 'other') {
-        console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@');
         otherGender = await UserGender.create({
-          user_id: username,
+          user_id: email,
           gender: reqParams.genderDescription,
         });
         console.log(otherGender);
