@@ -41,13 +41,13 @@ const postSchema = {
         message: 'Missing "gender" parameter',
       });
     }),
-    genderDescription: Joi.string().optional(),
     password: Joi.string().required().error(() => {
       throwBadRequest({
         code: 400,
         message: 'Missing "password" parameter',
       });
     }),
+    genderDescription: Joi.string().optional(),
   }),
 };
 
